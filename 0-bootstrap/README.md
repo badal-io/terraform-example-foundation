@@ -288,42 +288,45 @@ Each step has instructions for this change.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| billing\_account | The ID of the billing account to associate projects with. | `string` | n/a | yes |
-| bucket\_force\_destroy | When deleting a bucket, this boolean option will delete all contained objects. If false, Terraform will fail to delete buckets which contain objects. | `bool` | `false` | no |
-| bucket\_prefix | Name prefix to use for state bucket created. | `string` | `"bkt"` | no |
-| bucket\_tfstate\_kms\_force\_destroy | When deleting a bucket, this boolean option will delete the KMS keys used for the Terraform state bucket. | `bool` | `false` | no |
-| default\_region | Default region to create resources where applicable. | `string` | `"us-central1"` | no |
-| folder\_prefix | Name prefix to use for folders created. Should be the same in all steps. | `string` | `"fldr"` | no |
-| groups | Contain the details of the Groups to be created. | <pre>object({<br>    create_required_groups = optional(bool, false)<br>    create_optional_groups = optional(bool, false)<br>    billing_project        = optional(string, null)<br>    required_groups = object({<br>      group_org_admins           = string<br>      group_billing_admins       = string<br>      billing_data_users         = string<br>      audit_data_users           = string<br>      monitoring_workspace_users = string<br>    })<br>    optional_groups = optional(object({<br>      gcp_security_reviewer    = optional(string, "")<br>      gcp_network_viewer       = optional(string, "")<br>      gcp_scc_admin            = optional(string, "")<br>      gcp_global_secrets_admin = optional(string, "")<br>      gcp_kms_admin            = optional(string, "")<br>    }), {})<br>  })</pre> | n/a | yes |
-| initial\_group\_config | Define the group configuration when it is initialized. Valid values are: WITH\_INITIAL\_OWNER, EMPTY and INITIAL\_GROUP\_CONFIG\_UNSPECIFIED. | `string` | `"WITH_INITIAL_OWNER"` | no |
-| org\_id | GCP Organization ID | `string` | n/a | yes |
-| org\_policy\_admin\_role | Additional Org Policy Admin role for admin group. You can use this for testing purposes. | `bool` | `false` | no |
-| parent\_folder | Optional - for an organization with existing projects or for development/validation. It will place all the example foundation resources under the provided folder instead of the root organization. The value is the numeric folder ID. The folder must already exist. | `string` | `""` | no |
-| project\_prefix | Name prefix to use for projects created. Should be the same in all steps. Max size is 3 characters. | `string` | `"prj"` | no |
+| <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | The ID of the billing account to associate projects with. | `string` | n/a | yes |
+| <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | When deleting a bucket, this boolean option will delete all contained objects. If false, Terraform will fail to delete buckets which contain objects. | `bool` | `false` | no |
+| <a name="input_bucket_prefix"></a> [bucket\_prefix](#input\_bucket\_prefix) | Name prefix to use for state bucket created. | `string` | `"bkt"` | no |
+| <a name="input_bucket_tfstate_kms_force_destroy"></a> [bucket\_tfstate\_kms\_force\_destroy](#input\_bucket\_tfstate\_kms\_force\_destroy) | When deleting a bucket, this boolean option will delete the KMS keys used for the Terraform state bucket. | `bool` | `false` | no |
+| <a name="input_default_region"></a> [default\_region](#input\_default\_region) | Default region to create resources where applicable. | `string` | `"us-central1"` | no |
+| <a name="input_default_region_2"></a> [default\_region\_2](#input\_default\_region\_2) | Secondary default region to create resources where applicable. | `string` | `"us-west1"` | no |
+| <a name="input_default_region_gcs"></a> [default\_region\_gcs](#input\_default\_region\_gcs) | Case-Sensitive default region to create gcs resources where applicable. | `string` | `"US"` | no |
+| <a name="input_default_region_kms"></a> [default\_region\_kms](#input\_default\_region\_kms) | Secondary default region to create kms resources where applicable. | `string` | `"us"` | no |
+| <a name="input_folder_prefix"></a> [folder\_prefix](#input\_folder\_prefix) | Name prefix to use for folders created. Should be the same in all steps. | `string` | `"fldr"` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | Contain the details of the Groups to be created. | <pre>object({<br>    create_required_groups = optional(bool, false)<br>    create_optional_groups = optional(bool, false)<br>    required_groups = object({<br>      group_org_admins = object({<br>        id          = string<br>        description = optional(string, "")<br>        members     = list(string)<br>      })<br>      group_billing_admins = object({<br>        id          = string<br>        description = optional(string, "")<br>        members     = list(string)<br>      })<br>      billing_data_users = object({<br>        id          = string<br>        description = optional(string, "")<br>        members     = list(string)<br>      })<br>      audit_data_users = object({<br>        id          = string<br>        description = optional(string, "")<br>        members     = list(string)<br>      })<br>      monitoring_workspace_users = object({<br>        id          = string<br>        description = optional(string, "")<br>        members     = list(string)<br>      })<br>    })<br>    optional_groups = optional(map(object({<br>      id          = string<br>      description = optional(string, "")<br>      members     = list(string)<br>    })), {})<br>  })</pre> | n/a | yes |
+| <a name="input_initial_group_config"></a> [initial\_group\_config](#input\_initial\_group\_config) | Define the group configuration when it is initialized. Valid values are: WITH\_INITIAL\_OWNER, EMPTY and INITIAL\_GROUP\_CONFIG\_UNSPECIFIED. | `string` | `"WITH_INITIAL_OWNER"` | no |
+| <a name="input_org_id"></a> [org\_id](#input\_org\_id) | GCP Organization ID | `string` | n/a | yes |
+| <a name="input_org_policy_admin_role"></a> [org\_policy\_admin\_role](#input\_org\_policy\_admin\_role) | Additional Org Policy Admin role for admin group. You can use this for testing purposes. | `bool` | `false` | no |
+| <a name="input_parent_folder"></a> [parent\_folder](#input\_parent\_folder) | Optional - for an organization with existing projects or for development/validation. It will place all the example foundation resources under the provided folder instead of the root organization. The value is the numeric folder ID. The folder must already exist. | `string` | `""` | no |
+| <a name="input_project_prefix"></a> [project\_prefix](#input\_project\_prefix) | Name prefix to use for projects created. Should be the same in all steps. Max size is 3 characters. | `string` | `"prj"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| bootstrap\_step\_terraform\_service\_account\_email | Bootstrap Step Terraform Account |
-| cloud\_build\_peered\_network\_id | The ID of the Cloud Build peered network. |
-| cloud\_build\_private\_worker\_pool\_id | ID of the Cloud Build private worker pool. |
-| cloud\_build\_worker\_peered\_ip\_range | The IP range of the peered service network. |
-| cloud\_build\_worker\_range\_id | The Cloud Build private worker IP range ID. |
-| cloud\_builder\_artifact\_repo | Artifact Registry (AR) Repository created to store TF Cloud Builder images. |
-| cloudbuild\_project\_id | Project where Cloud Build configuration and terraform container image will reside. |
-| common\_config | Common configuration data to be used in other steps. |
-| csr\_repos | List of Cloud Source Repos created by the module, linked to Cloud Build triggers. |
-| environment\_step\_terraform\_service\_account\_email | Environment Step Terraform Account |
-| gcs\_bucket\_cloudbuild\_artifacts | Bucket used to store Cloud Build artifacts in cicd project. |
-| gcs\_bucket\_cloudbuild\_logs | Bucket used to store Cloud Build logs in cicd project. |
-| gcs\_bucket\_tfstate | Bucket used for storing terraform state for Foundations Pipelines in Seed Project. |
-| networks\_step\_terraform\_service\_account\_email | Networks Step Terraform Account |
-| optional\_groups | List of Google Groups created that are optional to the Example Foundation steps. |
-| organization\_step\_terraform\_service\_account\_email | Organization Step Terraform Account |
-| projects\_gcs\_bucket\_tfstate | Bucket used for storing terraform state for stage 4-projects foundations pipelines in seed project. |
-| projects\_step\_terraform\_service\_account\_email | Projects Step Terraform Account |
-| required\_groups | List of Google Groups created that are required by the Example Foundation steps. |
-| seed\_project\_id | Project where service accounts and core APIs will be enabled. |
+| <a name="output_bootstrap_step_terraform_service_account_email"></a> [bootstrap\_step\_terraform\_service\_account\_email](#output\_bootstrap\_step\_terraform\_service\_account\_email) | Bootstrap Step Terraform Account |
+| <a name="output_cloud_build_peered_network_id"></a> [cloud\_build\_peered\_network\_id](#output\_cloud\_build\_peered\_network\_id) | The ID of the Cloud Build peered network. |
+| <a name="output_cloud_build_private_worker_pool_id"></a> [cloud\_build\_private\_worker\_pool\_id](#output\_cloud\_build\_private\_worker\_pool\_id) | ID of the Cloud Build private worker pool. |
+| <a name="output_cloud_build_worker_peered_ip_range"></a> [cloud\_build\_worker\_peered\_ip\_range](#output\_cloud\_build\_worker\_peered\_ip\_range) | The IP range of the peered service network. |
+| <a name="output_cloud_build_worker_range_id"></a> [cloud\_build\_worker\_range\_id](#output\_cloud\_build\_worker\_range\_id) | The Cloud Build private worker IP range ID. |
+| <a name="output_cloud_builder_artifact_repo"></a> [cloud\_builder\_artifact\_repo](#output\_cloud\_builder\_artifact\_repo) | Artifact Registry (AR) Repository created to store TF Cloud Builder images. |
+| <a name="output_cloudbuild_project_id"></a> [cloudbuild\_project\_id](#output\_cloudbuild\_project\_id) | Project where Cloud Build configuration and terraform container image will reside. |
+| <a name="output_common_config"></a> [common\_config](#output\_common\_config) | Common configuration data to be used in other steps. |
+| <a name="output_csr_repos"></a> [csr\_repos](#output\_csr\_repos) | List of Cloud Source Repos created by the module, linked to Cloud Build triggers. |
+| <a name="output_environment_step_terraform_service_account_email"></a> [environment\_step\_terraform\_service\_account\_email](#output\_environment\_step\_terraform\_service\_account\_email) | Environment Step Terraform Account |
+| <a name="output_gcs_bucket_cloudbuild_artifacts"></a> [gcs\_bucket\_cloudbuild\_artifacts](#output\_gcs\_bucket\_cloudbuild\_artifacts) | Bucket used to store Cloud Build artifacts in cicd project. |
+| <a name="output_gcs_bucket_cloudbuild_logs"></a> [gcs\_bucket\_cloudbuild\_logs](#output\_gcs\_bucket\_cloudbuild\_logs) | Bucket used to store Cloud Build logs in cicd project. |
+| <a name="output_gcs_bucket_tfstate"></a> [gcs\_bucket\_tfstate](#output\_gcs\_bucket\_tfstate) | Bucket used for storing terraform state for Foundations Pipelines in Seed Project. |
+| <a name="output_networks_step_terraform_service_account_email"></a> [networks\_step\_terraform\_service\_account\_email](#output\_networks\_step\_terraform\_service\_account\_email) | Networks Step Terraform Account |
+| <a name="output_optional_groups"></a> [optional\_groups](#output\_optional\_groups) | List of Google Groups created that are optional to the Example Foundation steps. |
+| <a name="output_organization_step_terraform_service_account_email"></a> [organization\_step\_terraform\_service\_account\_email](#output\_organization\_step\_terraform\_service\_account\_email) | Organization Step Terraform Account |
+| <a name="output_projects_gcs_bucket_tfstate"></a> [projects\_gcs\_bucket\_tfstate](#output\_projects\_gcs\_bucket\_tfstate) | Bucket used for storing terraform state for stage 4-projects foundations pipelines in seed project. |
+| <a name="output_projects_step_terraform_service_account_email"></a> [projects\_step\_terraform\_service\_account\_email](#output\_projects\_step\_terraform\_service\_account\_email) | Projects Step Terraform Account |
+| <a name="output_required_groups"></a> [required\_groups](#output\_required\_groups) | List of Google Groups created that are required by the Example Foundation steps. |
+| <a name="output_seed_project_id"></a> [seed\_project\_id](#output\_seed\_project\_id) | Project where service accounts and core APIs will be enabled. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -33,25 +33,33 @@ data "google_organization" "org" {
 }
 
 module "required_group" {
-  source   = "terraform-google-modules/group/google"
-  version  = "~> 0.6"
+  source  = "terraform-google-modules/group/google"
+  version = "~> 0.6"
+  providers = {
+    google-beta = google-beta.seed-project
+  }
   for_each = local.required_groups_to_create
 
-  id                   = each.value
+  id                   = each.value.id
   display_name         = each.key
-  description          = each.key
+  description          = each.value.description
   initial_group_config = var.initial_group_config
   customer_id          = data.google_organization.org[0].directory_customer_id
+  members              = each.value.members
 }
 
 module "optional_group" {
-  source   = "terraform-google-modules/group/google"
-  version  = "~> 0.6"
+  source  = "terraform-google-modules/group/google"
+  version = "~> 0.6"
+  providers = {
+    google-beta = google-beta.seed-project
+  }
   for_each = local.optional_groups_to_create
 
-  id                   = each.value
+  id                   = each.value.id
   display_name         = each.key
-  description          = each.key
+  description          = each.value.description
   initial_group_config = var.initial_group_config
   customer_id          = data.google_organization.org[0].directory_customer_id
+  members              = each.value.members
 }

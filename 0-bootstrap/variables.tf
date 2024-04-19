@@ -80,27 +80,39 @@ variable "groups" {
   type = object({
     create_required_groups = optional(bool, false)
     create_optional_groups = optional(bool, false)
-    billing_project        = optional(string, null)
     required_groups = object({
-      group_org_admins           = string
-      group_billing_admins       = string
-      billing_data_users         = string
-      audit_data_users           = string
-      monitoring_workspace_users = string
+      group_org_admins = object({
+        id          = string
+        description = optional(string, "")
+        members     = list(string)
+      })
+      group_billing_admins = object({
+        id          = string
+        description = optional(string, "")
+        members     = list(string)
+      })
+      billing_data_users = object({
+        id          = string
+        description = optional(string, "")
+        members     = list(string)
+      })
+      audit_data_users = object({
+        id          = string
+        description = optional(string, "")
+        members     = list(string)
+      })
+      monitoring_workspace_users = object({
+        id          = string
+        description = optional(string, "")
+        members     = list(string)
+      })
     })
-    optional_groups = optional(object({
-      gcp_security_reviewer    = optional(string, "")
-      gcp_network_viewer       = optional(string, "")
-      gcp_scc_admin            = optional(string, "")
-      gcp_global_secrets_admin = optional(string, "")
-      gcp_kms_admin            = optional(string, "")
-    }), {})
+    optional_groups = optional(map(object({
+      id          = string
+      description = optional(string, "")
+      members     = list(string)
+    })), {})
   })
-
-  validation {
-    condition     = var.groups.create_required_groups || var.groups.create_optional_groups ? (var.groups.billing_project != null ? true : false) : true
-    error_message = "A billing_project must be passed to use the automatic group creation."
-  }
 
   validation {
     condition     = var.groups.required_groups.group_org_admins != ""

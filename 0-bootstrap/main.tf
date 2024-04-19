@@ -49,8 +49,8 @@ module "seed_bootstrap" {
   state_bucket_name              = "${var.bucket_prefix}-${var.project_prefix}-b-seed-tfstate"
   force_destroy                  = var.bucket_force_destroy
   billing_account                = var.billing_account
-  group_org_admins               = var.groups.required_groups.group_org_admins
-  group_billing_admins           = var.groups.required_groups.group_billing_admins
+  group_org_admins               = var.groups.required_groups.group_org_admins.id
+  group_billing_admins           = var.groups.required_groups.group_billing_admins.id
   default_region                 = var.default_region
   org_project_creators           = local.step_terraform_sa
   sa_enable_impersonation        = true
@@ -94,7 +94,8 @@ module "seed_bootstrap" {
     "billingbudgets.googleapis.com",
     "essentialcontacts.googleapis.com",
     "assuredworkloads.googleapis.com",
-    "cloudasset.googleapis.com"
+    "cloudasset.googleapis.com",
+    "cloudidentity.googleapis.com",
   ]
 
   sa_org_iam_permissions = []
