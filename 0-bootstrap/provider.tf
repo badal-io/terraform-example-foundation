@@ -15,8 +15,12 @@
  */
 
 provider "google-beta" {
+}
+
+provider "google-beta" {
+  alias                 = "seed-project"
   user_project_override = true
-  billing_project       = var.groups.billing_project
+  billing_project       = module.seed_bootstrap.seed_project_id
 }
 
 # If you are using Terraform Cloud Agents, un-comment this block after the first apply according README instructions

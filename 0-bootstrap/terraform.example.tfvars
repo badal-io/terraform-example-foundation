@@ -23,20 +23,59 @@ billing_account = "REPLACE_ME" # format "000000-000000-000000"
 groups = {
   # create_required_groups = false # Change to true to create the required_groups
   # create_optional_groups = false # Change to true to create the optional_groups
-  # billing_project        = "REPLACE_ME"  # Fill to create required or optional groups
   required_groups = {
-    group_org_admins           = "REPLACE_ME" # example "gcp-organization-admins@example.com"
-    group_billing_admins       = "REPLACE_ME" # example "gcp-billing-admins@example.com"
-    billing_data_users         = "REPLACE_ME" # example "gcp-billing-data@example.com"
-    audit_data_users           = "REPLACE_ME" # example "gcp-audit-data@example.com"
-    monitoring_workspace_users = "REPLACE_ME" # example "gcp-monitoring-workspace@example.com"
+    group_org_admins = {
+      id          = "REPLACE_ME" # example "gcp-organization-admins@example.com"
+      description = "REPLACE_ME"
+      members     = []
+    }
+    group_billing_admins = {
+      id          = "REPLACE_ME" # example "gcp-billing-admins@example.com""
+      description = "REPLACE_ME"
+      members     = []
+    }
+    billing_data_users = {
+      id          = "REPLACE_ME" # example "gcp-billing-data@example.com"
+      description = "REPLACE_ME"
+      members     = []
+    }
+    audit_data_users = {
+      id          = "REPLACE_ME" # example "gcp-audit-data@example.com"
+      description = "REPLACE_ME"
+      members     = []
+    }
+    audit_data_users = {
+      id          = "REPLACE_ME" # example "gcp-monitoring-workspace@example.com"
+      description = "REPLACE_ME"
+      members     = []
+    }
   }
   # optional_groups = {
-  #   gcp_security_reviewer      = "" #"gcp_security_reviewer_local_test@example.com"
-  #   gcp_network_viewer         = "" #"gcp_network_viewer_local_test@example.com"
-  #   gcp_scc_admin              = "" #"gcp_scc_admin_local_test@example.com"
-  #   gcp_global_secrets_admin   = "" #"gcp_global_secrets_admin_local_test@example.com"
-  #   gcp_kms_admin              = "" #"gcp_kms_admin_local_test@example.com"
+  #   gcp_security_reviewer = {
+  #     id          = "" #"gcp_security_reviewer_local_test@example.com"
+  #     description = ""
+  #     members     = []
+  #   }
+  #   gcp_network_viewer = {
+  #     id          = "" #"gcp_network_viewer_local_test@example.com"
+  #     description = ""
+  #     members     = []
+  #   }
+  #   gcp_scc_admin = {
+  #     id          = "" #"gcp_scc_admin_local_test@example.com"
+  #     description = ""
+  #     members     = []
+  #   }
+  #   gcp_global_secrets_admin = {
+  #     id          = "" #"gcp_global_secrets_admin_local_test@example.com"
+  #     description = ""
+  #     members     = []
+  #   }
+  #   gcp_kms_admins = {
+  #     id          = "" #"gcp_kms_admin_local_test@example.com"
+  #     description = ""
+  #     members     = []
+  #   }
   # }
 }
 
